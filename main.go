@@ -2,8 +2,12 @@ package main
 
 import (
 	"flag"
+	"log"
+	"net"
 	"os"
 )
+
+const port = "8080"
 
 func main() {
 	var isHost bool
@@ -23,9 +27,11 @@ func main() {
 }
 
 func runHost(ip string) {
-
+	_, listenErr := net.Listen("tcp", ip+":"+port)
+	if listenErr != nil {
+		log.Fatal("Error: ", listenErr)
+	}
 }
 
 func runGuest(ip string) {
-
 }

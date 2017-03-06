@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"flag"
+	"fmt"
 	"log"
 	"net"
 	"os"
@@ -32,10 +34,17 @@ func runHost(ip string) {
 		log.Fatal("Error: ", listenErr)
 	}
 
-	_, acceptError := listener.Accept()
+	conn, acceptError := listener.Accept()
 	if acceptError != nil {
 		log.Fatal("Error: ", acceptError)
 	}
+
+	reader := bufio.NewReader(conn)
+	message, readErr := reader.ReadString('\n')
+	if readErr != nil {
+		log.Fatal("Error: ", readErr)
+	}
+	fmt.Println("Message received: ", message)
 }
 
 func runGuest(ip string) {

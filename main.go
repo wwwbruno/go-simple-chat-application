@@ -27,9 +27,14 @@ func main() {
 }
 
 func runHost(ip string) {
-	_, listenErr := net.Listen("tcp", ip+":"+port)
+	listener, listenErr := net.Listen("tcp", ip+":"+port)
 	if listenErr != nil {
 		log.Fatal("Error: ", listenErr)
+	}
+
+	_, acceptError := listener.Accept()
+	if acceptError != nil {
+		log.Fatal("Error: ", acceptError)
 	}
 }
 

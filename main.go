@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"os"
 )
 
 func main() {
@@ -12,8 +12,20 @@ func main() {
 	flag.Parse()
 
 	if isHost {
-		fmt.Println("is host")
+		// go run main.go -listen <ip>
+		connIP := os.Args[2]
+		runHost(connIP)
 	} else {
-		fmt.Println("is guest")
+		// go run main.go <ip>
+		connIP := os.Args[1]
+		runGuest(connIP)
 	}
+}
+
+func runHost(ip string) {
+
+}
+
+func runGuest(ip string) {
+
 }

@@ -37,4 +37,10 @@ func RunHost(ip string) {
 // RunGuest takes an ip as argument
 // and looks for connection
 func RunGuest(ip string) {
+	ipAndPort := ip + ":" + port
+
+	conn, dailErr := net.Dail("tcp", ipAndPort)
+	if dailErr != nil {
+		log.Fatal("Error: ", dailErr)
+	}
 }

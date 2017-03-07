@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 )
 
 const port = "8080"
@@ -39,8 +40,17 @@ func RunHost(ip string) {
 func RunGuest(ip string) {
 	ipAndPort := ip + ":" + port
 
-	conn, dailErr := net.Dail("tcp", ipAndPort)
+	conn, dailErr := net.Dial("tcp", ipAndPort)
 	if dailErr != nil {
 		log.Fatal("Error: ", dailErr)
 	}
+
+	fmt.Print("Send message: ")
+	reader := bufio.NewReader(os.Stdin)
+	message, readErr := reader.ReadString('\n')
+	if readErr != nil {
+		log.Fatal("Error: ", readErr)
+	}
+
+	fmt.Fprint(conn, message)
 }
